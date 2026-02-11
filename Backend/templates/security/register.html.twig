@@ -1,0 +1,136 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Crear Cuenta - LuxeSalon{% endblock %}
+
+{% block body %}
+<div class="w-full h-full lg:h-screen flex flex-col lg:flex-row overflow-hidden bg-white dark:bg-background-dark shadow-2xl lg:shadow-none">
+    <!-- Left Side: Image/Context -->
+    <div class="relative hidden lg:block lg:w-5/12 xl:w-1/2 h-full bg-slate-900">
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 to-transparent z-10"></div>
+        <img alt="Professional hairstylist cutting hair in a modern salon" class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-80" 
+             src="https://lh3.googleusercontent.com/aida-public/AB6AXuDo2R-CYv16_6JxiAVwDG8pxhcNdU3WD8HLJvm3euOOM-OucS6xbM1FLuqkTKiVT40CHdTmLtmJyWmvk7vmT8rKi-ZXwS3SE8O4gsSC3ZOU51gdsRo-pZFZa1_rbm0myoKq0i85Dd6obIiW63kPD8Ego-I8MwAivN2K36bnKut8PVC-Yh_FpQvnRAiuJ_AGlz3PXdEe5CyGXkAOjrfT9xmLU_prS1kuy9GNbRR_bZn8faVMNMk7K_rUYvbV-XmXVWJ2BVHuffFmyg">
+        <div class="relative z-20 h-full flex flex-col justify-between p-12 text-white">
+            <div class="flex items-center gap-2">
+                <span class="material-icons-outlined text-3xl">content_cut</span>
+                <span class="text-xl font-bold tracking-wide">LuxeSalon</span>
+            </div>
+            <div class="mb-12">
+                <h1 class="text-4xl xl:text-5xl font-bold mb-6 leading-tight">Gestión profesional para tu salón de belleza.</h1>
+                <p class="text-slate-300 text-lg max-w-md">Únete a miles de estilistas que confían en nosotros para organizar sus citas y crecer su negocio.</p>
+            </div>
+            <div class="text-sm text-slate-400">
+                © 2026 LuxeSalon Pro.
+            </div>
+        </div>
+    </div>
+
+    <!-- Right Side: Registration Form -->
+    <div class="w-full lg:w-7/12 xl:w-1/2 flex items-center justify-center overflow-y-auto bg-white dark:bg-background-dark">
+        <div class="w-full max-w-2xl px-6 py-12 lg:px-12 xl:px-16">
+            <!-- Mobile Header -->
+            <div class="lg:hidden flex items-center gap-2 mb-8 text-primary dark:text-white">
+                <span class="material-icons-outlined text-3xl">content_cut</span>
+                <span class="text-xl font-bold tracking-wide">LuxeSalon</span>
+            </div>
+            
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-2">Crear Cuenta</h2>
+                <p class="text-slate-500 dark:text-slate-400">Únete hoy y empieza a gestionar tus citas de forma profesional.</p>
+            </div>
+
+            {{ form_start(registrationForm, {'attr': {'class': 'space-y-6'}}) }}
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Full Name -->
+                    <div class="space-y-2">
+                        {{ form_label(registrationForm.name, 'Nombre Completo', {'label_attr': {'class': 'block text-sm font-semibold text-slate-700 dark:text-slate-300'}}) }}
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                                <span class="material-icons-outlined text-xl">person</span>
+                            </span>
+                            {{ form_widget(registrationForm.name, {'attr': {'class': 'w-full pl-10 pr-4 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all', 'placeholder': 'Ej. María García'}}) }}
+                        </div>
+                        {{ form_errors(registrationForm.name) }}
+                    </div>
+
+                    <!-- Email -->
+                    <div class="space-y-2">
+                        {{ form_label(registrationForm.email, 'Correo Electrónico', {'label_attr': {'class': 'block text-sm font-semibold text-slate-700 dark:text-slate-300'}}) }}
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                                <span class="material-icons-outlined text-xl">email</span>
+                            </span>
+                            {{ form_widget(registrationForm.email, {'attr': {'class': 'w-full pl-10 pr-4 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all', 'placeholder': 'nombre@ejemplo.com'}}) }}
+                        </div>
+                        {{ form_errors(registrationForm.email) }}
+                    </div>
+
+                    <!-- Phone -->
+                    <div class="space-y-2">
+                        {{ form_label(registrationForm.phone, 'Teléfono Móvil', {'label_attr': {'class': 'block text-sm font-semibold text-slate-700 dark:text-slate-300'}}) }}
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                                <span class="material-icons-outlined text-xl">phone_iphone</span>
+                            </span>
+                            {{ form_widget(registrationForm.phone, {'attr': {'class': 'w-full pl-10 pr-4 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all', 'placeholder': '+34 600 000 000'}}) }}
+                        </div>
+                        {{ form_errors(registrationForm.phone) }}
+                    </div>
+
+                    <!-- Password -->
+                    <div class="space-y-2 md:col-span-2 lg:col-span-1">
+                        {{ form_label(registrationForm.plainPassword.first, 'Contraseña', {'label_attr': {'class': 'block text-sm font-semibold text-slate-700 dark:text-slate-300'}}) }}
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                                <span class="material-icons-outlined text-xl">lock</span>
+                            </span>
+                            {{ form_widget(registrationForm.plainPassword.first, {'attr': {'class': 'w-full pl-10 pr-10 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all', 'placeholder': '••••••••'}}) }}
+                        </div>
+                        {{ form_errors(registrationForm.plainPassword.first) }}
+                    </div>
+                </div>
+
+                <div class="flex items-start mt-6">
+                    <div class="flex items-center h-5">
+                        <input class="w-5 h-5 border-slate-300 rounded text-primary focus:ring-primary dark:bg-slate-800 dark:border-slate-600" id="terms" required type="checkbox">
+                    </div>
+                    <div class="ml-3 text-sm">
+                        <label class="font-medium text-slate-600 dark:text-slate-300" for="terms">
+                            Acepto los <a class="text-primary hover:text-primary-hover underline decoration-dotted" href="#">términos y condiciones</a> y la <a class="text-primary hover:text-primary-hover underline decoration-dotted" href="#">política de privacidad (RGPD)</a>.
+                        </label>
+                    </div>
+                </div>
+
+                <button class="w-full flex justify-center py-3.5 px-4 border border-transparent rounded-lg shadow-sm text-sm font-bold text-white bg-primary hover:bg-primary-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all transform active:scale-[0.99]" type="submit">
+                    Crear mi Cuenta
+                </button>
+
+                <div class="relative flex items-center py-2">
+                    <div class="flex-grow border-t border-slate-200 dark:border-slate-700"></div>
+                    <span class="flex-shrink-0 mx-4 text-slate-400 text-xs uppercase">O regístrate con</span>
+                    <div class="flex-grow border-t border-slate-200 dark:border-slate-700"></div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <button class="flex items-center justify-center w-full px-4 py-2.5 border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-sm font-medium text-slate-700 dark:text-slate-200 transition-colors gap-2" type="button">
+                        <img alt="Google Logo" class="h-5 w-5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBBa9aJF9NgxH8MRabWKRS9E1xax6KcKq40de7QTQ_hiTMfA9sZGSyfVhdoiC9kZjF92byK0F6l8w0l4bHlz3_XQ0P25zsBlmOAGDy3qxDkwn6e_Z6vVNWTlketExQXBlBqc6gVYGGtsy_mVAEYNxwRFK39g5DgbvlS80D5UclShfFlf57u0N0KxQ-pLvbu-K9QJ0b8qP8hGVVCw6iE5pA3_tI-B2HWNW1ESpcnL_TweqFu_vEnejy7scBHTIT-0cdK_RbcvJWKg">
+                        <span>Google</span>
+                    </button>
+                    <button class="flex items-center justify-center w-full px-4 py-2.5 border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-sm font-medium text-slate-700 dark:text-slate-200 transition-colors gap-2" type="button">
+                        <span class="text-xl leading-none text-[#1877F2] material-icons-outlined">facebook</span>
+                        <span>Facebook</span>
+                    </button>
+                </div>
+
+                <div class="text-center mt-6">
+                    <p class="text-sm text-slate-600 dark:text-slate-400">
+                        ¿Ya tienes cuenta? 
+                        <a class="font-bold text-primary hover:text-primary-hover transition-colors" href="{{ path('app_login') }}">
+                            Inicia sesión
+                        </a>
+                    </p>
+                </div>
+            {{ form_end(registrationForm) }}
+        </div>
+    </div>
+</div>
+{% endblock %}

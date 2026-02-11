@@ -1,0 +1,94 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Citas - Peluquería{% endblock %}
+{% block page_title %}Citas{% endblock %}
+{% block page_subtitle %}{{ currentDate|date('l d \\d\\e F \\d\\e Y') }}{% endblock %}
+
+{% block content %}
+    {# Date Navigation #}
+    <div class="mb-6 flex items-center gap-4">
+        {% set prevDate = currentDate|date_modify('-1 day') %}
+        {% set nextDate = currentDate|date_modify('+1 day') %}
+
+        <a href="{{ path('app_admin_appointments', {date: prevDate|date('Y-m-d')}) }}"
+           class="px-4 py-2 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors font-medium text-sm">
+            ← Anterior
+        </a>
+
+        <input type="date" value="{{ currentDate|date('Y-m-d') }}"
+               onchange="window.location.href='{{ path('app_admin_appointments') }}?date=' + this.value"
+               class="px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+
+        <a href="{{ path('app_admin_appointments', {date: nextDate|date('Y-m-d')}) }}"
+           class="px-4 py-2 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors font-medium text-sm">
+            Siguiente →
+        </a>
+
+        <a href="{{ path('app_admin_appointments') }}"
+           class="px-4 py-2 bg-purple-100 text-purple-700 rounded-xl font-medium text-sm hover:bg-purple-200 transition-colors ml-2">
+            Hoy
+        </a>
+    </div>
+
+    {# Appointments List #}
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+        {% if appointments|length > 0 %}
+            <div class="divide-y divide-gray-50">
+                {% for appointment in appointments %}
+                    <div class="px-6 py-4 flex items-center justify-between hover:bg-gray-50/50 transition-colors">
+                        <div class="flex items-center gap-4">
+                            <div class="w-20 text-center py-2 bg-gray-50 rounded-xl">
+                                <p class="text-lg font-bold text-gray-900">{{ appointment.startAt|date('H:i') }}</p>
+                                <p class="text-xs text-gray-400">{{ appointment.endAt|date('H:i') }}</p>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-900">{{ appointment.customer.fullName }}</p>
+                                <p class="text-sm text-gray-500">
+                                    {{ appointment.service.name }} · {{ appointment.service.duration }} min ·
+                                    <span class="font-medium">{{ appointment.service.formattedPrice }}</span>
+                                </p>
+                                <p class="text-xs text-gray-400 mt-0.5">
+                                    Profesional: {{ appointment.employee.fullName }}
+                                    {% if appointment.notes %} · Nota: {{ appointment.notes }}{% endif %}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-3">
+                            <span class="px-3 py-1 rounded-full text-xs font-semibold
+                                {% if appointment.status == 'pending' %}bg-yellow-100 text-yellow-700
+                                {% elseif appointment.status == 'confirmed' %}bg-blue-100 text-blue-700
+                                {% elseif appointment.status == 'completed' %}bg-emerald-100 text-emerald-700
+                                {% elseif appointment.status == 'cancelled' %}bg-red-100 text-red-700
+                                {% else %}bg-gray-100 text-gray-700{% endif %}">
+                                {{ appointment.statusLabel }}
+                            </span>
+
+                            {% if appointment.cancellable %}
+                                <div class="flex gap-1">
+                                    <form method="post" action="{{ path('app_admin_appointment_status', {id: appointment.id, status: 'confirmed'}) }}">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('status' ~ appointment.id) }}">
+                                        <button class="px-2 py-1 text-xs bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors" title="Confirmar">✓</button>
+                                    </form>
+                                    <form method="post" action="{{ path('app_admin_appointment_status', {id: appointment.id, status: 'completed'}) }}">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('status' ~ appointment.id) }}">
+                                        <button class="px-2 py-1 text-xs bg-emerald-50 text-emerald-600 rounded-lg hover:bg-emerald-100 transition-colors" title="Completar">✅</button>
+                                    </form>
+                                    <form method="post" action="{{ path('app_admin_appointment_status', {id: appointment.id, status: 'cancelled'}) }}">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('status' ~ appointment.id) }}">
+                                        <button class="px-2 py-1 text-xs bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors" title="Cancelar">✕</button>
+                                    </form>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="px-6 py-16 text-center">
+                <p class="text-4xl mb-3">📭</p>
+                <p class="text-gray-400 text-lg">No hay citas para este día</p>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

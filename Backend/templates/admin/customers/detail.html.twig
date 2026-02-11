@@ -1,0 +1,164 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block admin_title %}Ficha de Cliente: {{ customer.name }}{% endblock %}
+
+{% block admin_content %}
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 animate-fade-in-up">
+    <!-- Left Column: Identity & Contact (3 cols) -->
+    <aside class="lg:col-span-3 space-y-6">
+        <!-- Profile Card -->
+        <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-100 dark:border-slate-800 shadow-sm flex flex-col items-center text-center relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-24 bg-gradient-to-r from-primary/20 to-purple-500/20 z-0"></div>
+            <div class="relative z-10 mb-4">
+                <div class="w-24 h-24 rounded-full border-4 border-white dark:border-slate-800 shadow-lg bg-primary/10 flex items-center justify-center text-3xl font-bold text-primary">
+                    {{ customer.name|slice(0, 1)|upper }}
+                </div>
+                <span class="absolute bottom-1 right-1 w-5 h-5 bg-green-500 border-2 border-white dark:border-slate-800 rounded-full"></span>
+            </div>
+            <h1 class="text-xl font-bold text-slate-900 dark:text-white mb-1 relative z-10">{{ customer.name }}</h1>
+            <p class="text-sm text-slate-500 dark:text-slate-400 mb-4 relative z-10">Cliente desde {{ "now"|date("Y") - 5 }}</p>
+            
+            <div class="flex flex-wrap justify-center gap-2 mb-6 relative z-10">
+                <span class="px-2.5 py-1 bg-primary/10 text-primary text-xs font-semibold rounded-full border border-primary/20">VIP</span>
+                <span class="px-2.5 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-300 text-xs font-semibold rounded-full border border-purple-200 dark:border-purple-800">Pelo Largo</span>
+            </div>
+
+            <div class="w-full space-y-3 relative z-10">
+                <a href="tel:{{ customer.phone }}" class="flex items-center gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors group">
+                    <div class="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors">
+                        <span class="material-icons-outlined text-sm">phone</span>
+                    </div>
+                    <span class="text-sm font-medium text-slate-700 dark:text-slate-200">{{ customer.phone|default('No disponible') }}</span>
+                </a>
+                <a href="mailto:{{ customer.email }}" class="flex items-center gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors group">
+                    <div class="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors">
+                        <span class="material-icons-outlined text-sm">email</span>
+                    </div>
+                    <span class="text-sm font-medium text-slate-700 dark:text-slate-200">{{ customer.email }}</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Next Appointment Mini-Card -->
+        <div class="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-100 dark:border-slate-800 shadow-sm">
+            <h3 class="font-bold text-[10px] text-slate-400 uppercase tracking-widest mb-4">Próxima Cita</h3>
+            <div class="flex items-start gap-4">
+                <div class="bg-primary/10 rounded-xl p-2 text-center min-w-[60px]">
+                    <span class="block text-[10px] font-bold text-primary uppercase">OCT</span>
+                    <span class="block text-2xl font-bold text-slate-900 dark:text-white">24</span>
+                </div>
+                <div>
+                    <p class="font-bold text-slate-800 dark:text-white text-sm">Corte y Color</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">10:00 AM</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Middle Column: Stats, Notes & History (6 cols) -->
+    <section class="lg:col-span-6 space-y-6">
+        <!-- Key Metrics Row -->
+        <div class="grid grid-cols-3 gap-4">
+            <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
+                <p class="text-[10px] text-slate-500 uppercase tracking-widest font-bold mb-1">Gasto Total</p>
+                <p class="text-xl font-bold text-slate-900 dark:text-white">1.240€</p>
+            </div>
+            <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
+                <p class="text-[10px] text-slate-500 uppercase tracking-widest font-bold mb-1">Visitas</p>
+                <p class="text-xl font-bold text-slate-900 dark:text-white">18</p>
+            </div>
+            <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
+                <p class="text-[10px] text-slate-500 uppercase tracking-widest font-bold mb-1">Fidelidad</p>
+                <p class="text-xl font-bold text-emerald-500">Alta</p>
+            </div>
+        </div>
+
+        <!-- Technical Notes -->
+        <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden">
+            <div class="bg-slate-50 dark:bg-slate-800/50 px-5 py-3 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
+                <h3 class="font-bold text-sm text-slate-800 dark:text-slate-100 flex items-center gap-2">
+                    <span class="material-icons-outlined text-sm text-primary">description</span>
+                    Notas del Profesional
+                </h3>
+                <button class="text-primary text-xs font-bold hover:bg-primary/10 px-2 py-1 rounded transition-colors">
+                    + Nueva Nota
+                </button>
+            </div>
+            <div class="p-5 space-y-4">
+                <div class="bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500 p-3 rounded-r-md">
+                    <div class="flex items-start gap-3">
+                        <span class="material-icons-outlined text-red-500 text-sm mt-0.5">warning</span>
+                        <div>
+                            <p class="text-sm font-bold text-red-700 dark:text-red-400">Alergia Confirmada</p>
+                            <p class="text-xs text-red-600 dark:text-red-300 mt-1">Reacción severa a tintes con PPD.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative pl-4 border-l-2 border-slate-100 dark:border-slate-800">
+                    <span class="absolute -left-[5px] top-1 w-2.5 h-2.5 rounded-full bg-slate-300 dark:bg-slate-600 border-2 border-white dark:border-slate-900"></span>
+                    <p class="text-[10px] text-slate-400 mb-1">15 Sep 2023 • Laura M.</p>
+                    <p class="text-sm text-slate-700 dark:text-slate-300">
+                        <span class="font-bold">Fórmula Color:</span> Raíces 6.0 (20g) + 6.1 (10g) con ox 20 vol.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- History Table -->
+        <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden">
+            <table class="w-full text-left">
+                <thead class="bg-slate-50 dark:bg-slate-800/50">
+                    <tr>
+                        <th class="py-3 px-5 text-[10px] font-bold text-slate-400 uppercase tracking-widest">Fecha</th>
+                        <th class="py-3 px-5 text-[10px] font-bold text-slate-400 uppercase tracking-widest">Servicio</th>
+                        <th class="py-3 px-5 text-[10px] font-bold text-slate-400 uppercase tracking-widest text-right">Precio</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                    {% for appointment in appointments %}
+                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                            <td class="py-4 px-5 text-sm text-slate-600 dark:text-slate-400">{{ appointment.startAt|date('d M, Y') }}</td>
+                            <td class="py-4 px-5">
+                                <p class="text-sm font-bold text-slate-900 dark:text-white">{{ appointment.service.name }}</p>
+                                <p class="text-xs text-slate-400">{{ appointment.employee.name }}</p>
+                            </td>
+                            <td class="py-4 px-5 text-sm font-bold text-slate-900 dark:text-white text-right">{{ appointment.service.price }}€</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Right Column: Loyalty & Gallery -->
+    <aside class="lg:col-span-3 space-y-6">
+        <!-- Loyalty Widget -->
+        <div class="bg-slate-900 rounded-2xl p-6 text-white shadow-xl relative overflow-hidden group">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-primary/20 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-primary/40 transition-all"></div>
+            <p class="text-[10px] text-slate-400 uppercase tracking-widest font-bold mb-1">Fidelidad</p>
+            <h2 class="text-xl font-bold flex items-center gap-2 mb-4">
+                <span class="material-icons text-amber-400">workspace_premium</span> Nivel Oro
+            </h2>
+            <div class="w-full bg-slate-800 rounded-full h-1.5 mb-2">
+                <div class="bg-primary h-1.5 rounded-full" style="width: 85%"></div>
+            </div>
+            <p class="text-[10px] text-slate-400">Faltan <span class="text-white font-bold">50ptos</span> para próximo descuento.</p>
+        </div>
+
+        <!-- Before/After Gallery -->
+        <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm p-5">
+            <h3 class="font-bold text-[10px] text-slate-400 uppercase tracking-widest mb-4">Evolución</h3>
+            <div class="grid grid-cols-2 gap-2">
+                <div class="aspect-square bg-slate-100 dark:bg-slate-800 rounded-xl overflow-hidden relative group">
+                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSKc5jxZE9BQgRnZybF3po0zm_dOSYvuvu00sP12_i2j6WAUxX6mpsoVVdv5DJY0isyXoN-pANy1AMFLTwCQVTrROYpGls5cks6rsevdDQzqIUy1vOtqvppTw3xeQ-KUDt9KL5g6NqXEqZeDCV7B9Ka8D-cyccfkocd6pk6aDlD2-lXGYXhz1ugvUtlH__qJyby1Ysu5z9pMKz0miZrKAdLOg5CXcZBIpPovTIQBZrPUIN2pRhbJ32jUFK-KwFfXfY_-AN67aeSA" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
+                    <span class="absolute bottom-1 left-1 bg-black/60 text-white text-[8px] px-1 rounded backdrop-blur-sm">Antes</span>
+                </div>
+                <div class="aspect-square bg-slate-100 dark:bg-slate-800 rounded-xl overflow-hidden relative group">
+                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4H6CyjJPsYkY7wtw_cBZbc-HRiqHrMGZoxAuE6gFDseXuIcVfshJ3oi5vQj_TxgwZr3-I1uzUKUie6Asr6igpBAEm_6ADjCJm7YrRpth5Ju3qK_TKYbizPyUjBmF-V917Sa_qC2t2cfDQqeEOo10XL4YyXyU3_kebTTtHK0rezMPyc6P2JC3zhWxveZencPL8npMFpNCAgp6wgDJEpPaFH_4MSu6CM8qa5wGWjqEwMfgima0OaM6vVWCVT97EBoSEXzAHA0gYmA" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
+                    <span class="absolute bottom-1 left-1 bg-primary/80 text-white text-[8px] px-1 rounded backdrop-blur-sm">Después</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+</div>
+{% endblock %}

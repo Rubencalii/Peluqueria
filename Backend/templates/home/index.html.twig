@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Peluquería - Sistema de Reservas{% endblock %}
+
+{% block body %}
+<div class="min-h-screen bg-gradient-to-br from-purple-900 via-purple-800 to-pink-800">
+    {# Navbar #}
+    <nav class="py-6 px-8">
+        <div class="max-w-6xl mx-auto flex items-center justify-between">
+            <h1 class="text-2xl font-bold text-white">✂️ Peluquería</h1>
+            <div class="flex gap-3">
+                <a href="{{ path('app_login') }}"
+                   class="px-5 py-2.5 text-white/80 hover:text-white font-medium transition-colors">
+                    Iniciar sesión
+                </a>
+                <a href="{{ path('app_register') }}"
+                   class="px-5 py-2.5 bg-white/10 border border-white/20 text-white rounded-xl font-medium hover:bg-white/20 transition-all">
+                    Registrarse
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    {# Hero #}
+    <div class="max-w-6xl mx-auto px-8 py-20 text-center">
+        <h2 class="text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight">
+            Tu look perfecto<br>
+            <span class="bg-gradient-to-r from-pink-300 to-purple-300 bg-clip-text text-transparent">
+                a un clic
+            </span>
+        </h2>
+        <p class="text-xl text-purple-200 mb-10 max-w-2xl mx-auto">
+            Reserva tu cita online de forma rápida y sencilla. Elige tu servicio, profesional y horario favorito.
+        </p>
+        <a href="{{ path('app_booking') }}"
+           class="inline-block px-8 py-4 bg-gradient-to-r from-pink-500 to-purple-500 text-white text-lg font-bold rounded-2xl shadow-2xl shadow-pink-500/30 hover:shadow-pink-500/50 transition-all duration-300 transform hover:scale-105">
+            Reservar ahora →
+        </a>
+    </div>
+
+    {# Features #}
+    <div class="max-w-6xl mx-auto px-8 pb-20">
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/10">
+                <div class="text-4xl mb-4">📅</div>
+                <h3 class="text-xl font-bold text-white mb-2">Reserva 24/7</h3>
+                <p class="text-purple-200">Disponible las 24 horas. Elige tu franja horaria perfecta cuando quieras.</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/10">
+                <div class="text-4xl mb-4">⚡</div>
+                <h3 class="text-xl font-bold text-white mb-2">Confirmación al instante</h3>
+                <p class="text-purple-200">Recibe confirmación inmediata por email. Sin esperas ni llamadas.</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/10">
+                <div class="text-4xl mb-4">💇</div>
+                <h3 class="text-xl font-bold text-white mb-2">Elige tu profesional</h3>
+                <p class="text-purple-200">Selecciona al estilista que prefieras o prueba con nuevos talentos.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

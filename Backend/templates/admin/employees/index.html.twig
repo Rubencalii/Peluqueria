@@ -1,0 +1,60 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Profesionales - Peluquería{% endblock %}
+{% block page_title %}Profesionales{% endblock %}
+{% block page_subtitle %}Equipo de la peluquería{% endblock %}
+
+{% block content %}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for employee in employees %}
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-shadow">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="w-14 h-14 bg-gradient-to-br from-purple-400 to-pink-400 rounded-xl flex items-center justify-center text-white text-xl font-bold">
+                        {{ employee.name|first|upper }}
+                    </div>
+                    <div>
+                        <p class="font-semibold text-gray-900 text-lg">{{ employee.fullName }}</p>
+                        <p class="text-sm text-gray-400">{{ employee.email }}</p>
+                    </div>
+                </div>
+
+                {% if employee.phone %}
+                    <p class="text-sm text-gray-600 mb-3">📞 {{ employee.phone }}</p>
+                {% endif %}
+
+                {% if employee.specialties %}
+                    <div class="mb-4">
+                        <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Especialidades</p>
+                        <div class="flex flex-wrap gap-1.5">
+                            {% for specialty in employee.specialties %}
+                                <span class="px-2.5 py-1 bg-purple-50 text-purple-700 rounded-lg text-xs font-medium">
+                                    {{ specialty }}
+                                </span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if employee.schedules|length > 0 %}
+                    <div>
+                        <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Horario</p>
+                        <div class="space-y-1">
+                            {% for schedule in employee.schedules %}
+                                {% if schedule.active %}
+                                    <div class="flex justify-between text-sm">
+                                        <span class="text-gray-600">{{ schedule.dayName }}</span>
+                                        <span class="text-gray-900 font-medium">{{ schedule.startTime|date('H:i') }} - {{ schedule.endTime|date('H:i') }}</span>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        {% else %}
+            <div class="col-span-3 text-center py-12">
+                <p class="text-gray-400 text-lg">No hay profesionales registrados</p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
