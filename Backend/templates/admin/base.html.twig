@@ -42,6 +42,10 @@
                 <span class="material-icons-outlined text-xl">settings</span>
                 <span class="font-medium text-sm">Configuración</span>
             </a>
+            <a href="{{ path('app_admin_cash') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors {% if app.request.attributes.get('_route') == 'app_admin_cash' %}bg-primary text-white shadow-lg shadow-primary/20{% else %}hover:bg-slate-800 hover:text-white{% endif %}">
+                <span class="material-icons-outlined text-xl">payments</span>
+                <span class="font-medium text-sm">Caja</span>
+            </a>
         </nav>
 
         <!-- User Info -->

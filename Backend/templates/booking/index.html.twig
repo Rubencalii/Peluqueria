@@ -16,9 +16,11 @@
     </div>
 </header>
 
-<main class="max-w-7xl mx-auto w-full p-4 sm:p-6 lg:p-8">
-    <div {{ react_component('BookingWizard') }}></div>
-</main>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div {{ react_component('BookingWizard', {
+            'stripePublicKey': app.request.server.get('STRIPE_PUBLIC_KEY')
+        }) }}></div>
+    </div>
 
 <!-- Mobile Sticky Footer Summary (Managed by React, but container here if needed) -->
 {% endblock %}

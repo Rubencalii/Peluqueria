@@ -1,0 +1,16 @@
+{% extends 'base_email.html.twig' %}
+
+{% block content %}
+    <h1 style="color: #135BEC;">¡Hola, {{ appointment.customer.name }}!</h1>
+    <p>Tu reserva en <strong>LuxeSalon</strong> ha sido confirmada con éxito.</p>
+    
+    <div style="background: #f8fafc; padding: 20px; border-radius: 10px; margin: 20px 0;">
+        <p><strong>Servicio:</strong> {{ appointment.service.name }}</p>
+        <p><strong>Profesional:</strong> {{ appointment.employee.name }}</p>
+        <p><strong>Fecha y Hora:</strong> {{ appointment.startAt|date('d/m/Y H:i') }}</p>
+    </div>
+
+    <p>La fianza de 5.00€ ha sido recibida correctamente. El importe restante se abonará en el salón.</p>
+    
+    <p>¡Te esperamos!</p>
+{% endblock %}

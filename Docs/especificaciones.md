@@ -576,13 +576,12 @@ El sistema gestionará el ciclo de vida financiero de la reserva:
 
 ## 📍 Estado de Implementación (Febrero 2026)
 
-| Módulo              | Estado        | Descripción                                     |
-| :------------------ | :------------ | :---------------------------------------------- |
-| **Infraestructura** | ✅ Estable    | MariaDB 11 (3307), Symfony 8, Docker Compose.   |
-| **Auth**            | ✅ Finalizado | Login/Registro con diseño split-screen premium. |
-| **Admin Dashboard** | ✅ Finalizado | KPIs, Agenda "Maestro de Día" y Alertas.        |
-| **CRM**             | ✅ Finalizado | Ficha de cliente con Galería y Notas Técnicas.  |
-| **Booking Wizard**  | ✅ Funcional  | Flujo React de 3 pasos integrado.               |
-| **Notificaciones**  | ⏳ Pendiente  | Integración con Mailer/WhatsApp (Fase 2).       |
+| Módulo              | Estado        | Descripción                        |
+| :------------------ | :------------ | :--------------------------------- |
+| **MVP (Base)**      | ✅ Completado | Core, MariaDB, Alta fidelidad.     |
+| **Pagos (Stripe)**  | ✅ Completado | Fianzas online y Webhooks.         |
+| **Notificaciones**  | ✅ Completado | Emails automáticos (Confirmación). |
+| **Gestión de Caja** | ✅ Completado | Cierre de caja diario admin.       |
+| **Fase 3 (APP)**    | ⏳ Pendiente  | Modo offline y PWA.                |
 
 _Última actualización: 11 de Febrero, 2026_

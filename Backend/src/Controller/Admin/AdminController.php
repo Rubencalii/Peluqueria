@@ -51,6 +51,22 @@ class AdminController extends AbstractController
         ]);
     }
 
+    #[Route('/cash', name: 'app_admin_cash')]
+    public function cash(EntityManagerInterface $em): Response
+    {
+        // Mock daily revenue for today
+        $revenue = [
+            'cash' => 150.00,
+            'card' => 420.50,
+            'online' => 25.00,
+            'total' => 595.50
+        ];
+
+        return $this->render('admin/cash/index.html.twig', [
+            'revenue' => $revenue,
+        ]);
+    }
+
     #[Route('/customers/{id}', name: 'app_admin_customer_detail')]
     public function customerDetail(User $customer, AppointmentRepository $appointmentRepo): Response
     {
