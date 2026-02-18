@@ -577,14 +577,15 @@ El sistema gestionará el ciclo de vida financiero de la reserva:
 
 ## 📍 Estado de Implementación (Febrero 2026)
 
-| Módulo                 | Estado        | Descripción                         |
-| :--------------------- | :------------ | :---------------------------------- |
-| **MVP (Base)**         | ✅ Completado | Core, MariaDB, Alta fidelidad.      |
-| **Pagos (Stripe)**     | ✅ Completado | Fianzas online y Webhooks.          |
-| **Notificaciones**     | ✅ Completado | Emails automáticos (Confirmación).  |
-| **Gestión de Caja**    | ✅ Completado | Cierre de caja diario admin.        |
-| **Fase 3 (CRM & PWA)** | ✅ Completado | Fidelización, CRM y Modo Offline.   |
-| **Fase 4 (Marketing)** | ✅ Completado | Galería RRSS, Referidos y Campañas. |
-| **Fase 5 (Finanzas)**  | ✅ Completado | Facturación, IVA y Proveedores.     |
+| Módulo                 | Estado        | Descripción                            |
+| :--------------------- | :------------ | :------------------------------------- |
+| **MVP (Base)**         | ✅ Completado | Core, MariaDB, Alta fidelidad.         |
+| **Pagos (Stripe)**     | ✅ Completado | Fianzas online y Webhooks.             |
+| **Notificaciones**     | ✅ Completado | Emails automáticos (Confirmación).     |
+| **Gestión de Caja**    | ✅ Completado | Cierre de caja diario admin.           |
+| **Fase 3 (CRM & PWA)** | ✅ Completado | Fidelización, CRM y Modo Offline.      |
+| **Fase 4 (Marketing)** | ✅ Completado | Galería RRSS, Referidos y Campañas.    |
+| **Fase 5 (Finanzas)**  | ✅ Completado | Facturación, IVA y Proveedores.        |
+| **Fase 6 (IA & KPIs)** | ✅ Completado | Predicción, KPI Dashboard y Upselling. |
 
 _Última actualización: 18 de Febrero, 2026_
