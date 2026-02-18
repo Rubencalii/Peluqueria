@@ -79,6 +79,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: WaitingList::class, mappedBy: 'customer', orphanRemoval: true)]
     private Collection $waitingListItems;
 
+    #[ORM\OneToOne(mappedBy: 'owner', cascade: ['persist', 'remove'])]
+    private ?ReferralCode $referralCode = null;
+
+    /** @var Collection<int, BeforeAfterGallery> */
+    #[ORM\OneToMany(targetEntity: BeforeAfterGallery::class, mappedBy: 'customer', orphanRemoval: true)]
+    private Collection $galleryPhotos;
+
     public function __construct()
     {
         $this->appointmentsAsCustomer = new ArrayCollection();
@@ -87,6 +94,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->reviews = new ArrayCollection();
         $this->professionalNotes = new ArrayCollection();
         $this->waitingListItems = new ArrayCollection();
+        $this->galleryPhotos = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable();
     }
 
@@ -280,5 +288,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getWaitingListItems(): Collection
     {
         return $this->waitingListItems;
+    }
+
+    public function getReferralCode(): ?ReferralCode
+    {
+        return $this->referralCode;
+    }
+
+    public function setReferralCode(ReferralCode $referralCode): static
+    {
+        // set the owning side of the relation if necessary
+        if ($referralCode->getOwner() !== $this) {
+            $referralCode->setOwner($this);
+        }
+
+        $this->referralCode = $referralCode;
+
+        return $this;
+    }
+
+    /** @return Collection<int, BeforeAfterGallery> */
+    public function getGalleryPhotos(): Collection
+    {
+        return $this->galleryPhotos;
     }
 }
