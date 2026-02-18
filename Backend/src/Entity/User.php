@@ -86,6 +86,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: BeforeAfterGallery::class, mappedBy: 'customer', orphanRemoval: true)]
     private Collection $galleryPhotos;
 
+    /** @var Collection<int, UserAchievement> */
+    #[ORM\OneToMany(targetEntity: UserAchievement::class, mappedBy: 'user', orphanRemoval: true)]
+    private Collection $achievements;
+
     public function __construct()
     {
         $this->appointmentsAsCustomer = new ArrayCollection();
@@ -95,6 +99,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->professionalNotes = new ArrayCollection();
         $this->waitingListItems = new ArrayCollection();
         $this->galleryPhotos = new ArrayCollection();
+        $this->achievements = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable();
     }
 
@@ -311,5 +316,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getGalleryPhotos(): Collection
     {
         return $this->galleryPhotos;
+    }
+
+    /** @return Collection<int, UserAchievement> */
+    public function getAchievements(): Collection
+    {
+        return $this->achievements;
     }
 }
