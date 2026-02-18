@@ -90,6 +90,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: UserAchievement::class, mappedBy: 'user', orphanRemoval: true)]
     private Collection $achievements;
 
+    /** @var Collection<int, VacationRequest> */
+    #[ORM\OneToMany(targetEntity: VacationRequest::class, mappedBy: 'employee', orphanRemoval: true)]
+    private Collection $vacationRequests;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $baseSalary = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $commissionRate = null; // Percentage (e.g. 0.10 for 10%)
+
     public function __construct()
     {
         $this->appointmentsAsCustomer = new ArrayCollection();
@@ -100,6 +110,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->waitingListItems = new ArrayCollection();
         $this->galleryPhotos = new ArrayCollection();
         $this->achievements = new ArrayCollection();
+        $this->vacationRequests = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable();
     }
 
@@ -322,5 +333,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getAchievements(): Collection
     {
         return $this->achievements;
+    }
+
+    /** @return Collection<int, VacationRequest> */
+    public function getVacationRequests(): Collection
+    {
+        return $this->vacationRequests;
+    }
+
+    public function getBaseSalary(): ?float
+    {
+        return $this->baseSalary;
+    }
+
+    public function setBaseSalary(?float $baseSalary): static
+    {
+        $this->baseSalary = $baseSalary;
+        return $this;
+    }
+
+    public function getCommissionRate(): ?float
+    {
+        return $this->commissionRate;
+    }
+
+    public function setCommissionRate(?float $commissionRate): static
+    {
+        $this->commissionRate = $commissionRate;
+        return $this;
     }
 }
