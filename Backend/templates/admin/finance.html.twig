@@ -1,0 +1,49 @@
+{% extends 'admin_base.html.twig' %}
+
+{% block header_title %}Reportes Financieros
+{% endblock %}
+
+{% block body %}
+	<div class="max-w-7xl mx-auto space-y-6">
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+			<div class="bg-white dark:bg-[#1e293b] rounded-xl border border-gray-100 dark:border-gray-700 p-6 shadow-sm">
+				<h3 class="font-bold text-gray-800 dark:text-white mb-4 flex items-center gap-2">
+					<span class="material-icons-outlined text-green-500 text-lg">monetization_on</span>
+					Resumen de Ingresos
+				</h3>
+				<div class="space-y-4">
+					<div class="flex justify-between items-center py-2 border-b dark:border-gray-700">
+						<span class="text-sm text-gray-500">Servicios</span>
+						<span class="font-bold text-gray-900 dark:text-white">€{{ reports.totals.revenue|number_format(2) }}</span>
+					</div>
+					<div class="flex justify-between items-center py-2 border-b dark:border-gray-700">
+						<span class="text-sm text-gray-500">Descuentos</span>
+						<span class="font-bold text-red-500">-€{{ (reports.totals.revenue * 0.05)|number_format(2) }}</span>
+					</div>
+					<div class="flex justify-between items-center py-4 bg-gray-50 dark:bg-gray-800 rounded px-4">
+						<span class="font-bold text-gray-900 dark:text-white">Total Neto</span>
+						<span class="text-xl font-black text-[#135bec]">€{{ (reports.totals.revenue * 0.95)|number_format(2) }}</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="bg-white dark:bg-[#1e293b] rounded-xl border border-gray-100 dark:border-gray-700 p-6 shadow-sm">
+				<h3 class="font-bold text-gray-800 dark:text-white mb-4 flex items-center gap-2">
+					<span class="material-icons-outlined text-gray-400 text-lg">receipt_long</span>
+					Desglose Fiscal (IVA)
+				</h3>
+				<div class="space-y-4">
+					<div class="flex justify-between items-center py-2">
+						<span class="text-sm text-gray-500">Base Imponible</span>
+						<span class="font-medium text-gray-900 dark:text-white">€{{ (reports.totals.revenue * 0.79)|number_format(2) }}</span>
+					</div>
+					<div class="flex justify-between items-center py-2">
+						<span class="text-sm text-gray-500">IVA (21%)</span>
+						<span class="font-medium text-gray-900 dark:text-white">€{{ (reports.totals.revenue * 0.21)|number_format(2) }}</span>
+					</div>
+					<button class="w-full mt-4 bg-gray-100 dark:bg-gray-800 text-sm py-2.5 rounded-lg hover:bg-gray-200 transition-colors font-bold">Generar Reporte PDF</button>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

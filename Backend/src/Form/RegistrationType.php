@@ -49,12 +49,12 @@ class RegistrationType extends AbstractType
                     'attr' => ['placeholder' => 'Repite tu contraseña'],
                 ],
                 'constraints' => [
-                    new NotBlank(['message' => 'Introduce una contraseña']),
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'La contraseña debe tener al menos {{ limit }} caracteres',
-                        'max' => 4096,
-                    ]),
+                    new NotBlank(message: 'Introduce una contraseña'),
+                    new Length(
+                        min: 6,
+                        minMessage: 'La contraseña debe tener al menos {{ limit }} caracteres',
+                        max: 4096,
+                    ),
                 ],
             ]);
     }

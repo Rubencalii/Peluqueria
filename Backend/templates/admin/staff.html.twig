@@ -1,0 +1,29 @@
+{% extends 'admin_base.html.twig' %}
+
+{% block header_title %}Equipo y Personal
+{% endblock %}
+
+{% block body %}
+	<div class="max-w-7xl mx-auto space-y-6">
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+			{% for member in staff %}
+				<div class="bg-white dark:bg-[#1e293b] rounded-xl border border-gray-100 dark:border-gray-700 p-6 shadow-sm flex flex-col items-center text-center">
+					<div class="w-20 h-20 rounded-full bg-[#135bec]/10 flex items-center justify-center text-[#135bec] text-3xl mb-4 font-bold">
+						{{ member.firstName|slice(0, 1) }}
+					</div>
+					<h3 class="font-bold text-gray-900 dark:text-white">{{ member.firstName }}
+						{{ member.lastName }}</h3>
+					<p class="text-xs text-gray-500 mb-4">Estilista Profesional</p>
+					<div class="flex gap-2 w-full mt-2">
+						<button class="flex-1 bg-gray-50 dark:bg-gray-800 text-xs py-2 rounded-lg hover:bg-[#135bec]/5 hover:text-[#135bec] transition-colors">Horario</button>
+						<button class="flex-1 bg-gray-50 dark:bg-gray-800 text-xs py-2 rounded-lg hover:bg-[#135bec]/5 hover:text-[#135bec] transition-colors">Comisiones</button>
+					</div>
+				</div>
+			{% else %}
+				<div class="col-span-full py-10 text-center text-gray-400 italic bg-white dark:bg-[#1e293b] rounded-xl border border-gray-100 dark:border-gray-700">
+					No hay personal configurado.
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}

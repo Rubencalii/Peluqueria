@@ -1,0 +1,90 @@
+{% extends 'admin_base.html.twig' %}
+
+{% block header_title %}Agenda y Citas
+{% endblock %}
+
+{% block body %}
+	<div class="max-w-7xl mx-auto">
+		<div class="bg-white dark:bg-[#1e293b] rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm flex flex-col h-[700px] overflow-hidden">
+			<div class="p-4 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center bg-gray-50/50 dark:bg-gray-800/50">
+				<div class="flex items-center gap-4">
+					<h2 class="font-bold text-gray-800 dark:text-white flex items-center gap-2">
+						<span class="material-icons-outlined text-[#135bec]">calendar_month</span>
+						Vista Diaria
+					</h2>
+					<div class="flex bg-white dark:bg-gray-700 rounded-lg p-1 text-xs border border-gray-200 dark:border-gray-600">
+						<button class="px-4 py-1.5 bg-gray-100 dark:bg-gray-600 rounded-md font-bold shadow-sm">Hoy</button>
+						<button class="px-4 py-1.5 hover:bg-gray-50 dark:hover:bg-gray-600 transition-all">Semana</button>
+					</div>
+				</div>
+				<div class="flex items-center gap-2">
+					<button class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors">
+						<span class="material-icons-outlined text-gray-500">chevron_left</span>
+					</button>
+					<span class="text-sm font-bold">{{ "now"|date("d M Y") }}</span>
+					<button class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors">
+						<span class="material-icons-outlined text-gray-500">chevron_right</span>
+					</button>
+				</div>
+			</div>
+
+			<div
+				class="flex-1 overflow-auto custom-scrollbar relative">
+				<!-- Stylist Columns Header -->
+				<div class="grid grid-cols-{{ staff|length + 1 }} sticky top-0 z-20 bg-white dark:bg-[#1e293b] border-b dark:border-gray-700 shadow-sm">
+					<div class="w-20 bg-gray-50 dark:bg-[#1a2333] border-r dark:border-gray-700"></div>
+					{% for member in staff %}
+						<div class="px-4 py-3 text-center border-l dark:border-gray-700">
+							<div class="flex flex-col items-center">
+								<div class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center mb-1 border-2 border-[#135bec]/20">
+									<span class="text-xs font-bold">{{ member.firstName|slice(0, 1) }}</span>
+								</div>
+								<span class="font-bold text-sm block">{{ member.firstName }}</span>
+								<span class="text-[10px] text-gray-400 uppercase tracking-wider">Estilista</span>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+
+				<!-- Calendar Grid Body -->
+				<div class="relative">
+					<div
+						class="grid grid-cols-{{ staff|length + 1 }}">
+						<!-- Time labels -->
+						<div class="w-20 bg-gray-50 dark:bg-[#1a2333] border-r dark:border-gray-700 text-[10px] text-gray-400 font-medium text-center">
+							{% for hour in 9..20 %}
+								<div class="h-24 border-b dark:border-gray-800 flex items-start justify-center pt-2">{{ hour }}:00</div>
+							{% endfor %}
+						</div>
+
+						<!-- Stylist Columns Grid -->
+						{% for member in staff %}
+							<div
+								class="relative border-l dark:border-gray-700 bg-white dark:bg-[#1e293b]">
+								<!-- Grid horizontal lines -->
+								{% for hour in 9..20 %}
+									<div class="h-24 border-b border-dashed border-gray-100 dark:border-gray-800"></div>
+								{% endfor %}
+
+								<!-- Filter appointments for this member and render -->
+								{% for appointment in appointments %}
+									{% if appointment.employee == member %}
+										{# Simple positioning logic: (hour - 9) * pixel_height #}
+										{% set start_hour = appointment.startAt|date('H')|number_format %}
+										{% set start_min = appointment.startAt|date('i')|number_format %}
+										{% set duration_min = 60 %}
+										{# Mocking 60m for now #}
+										<div class="absolute left-1 right-1 bg-[#135bec]/10 border-l-4 border-[#135bec] rounded p-2 z-10 hover:shadow-lg transition-all cursor-pointer" style="top: {{ ((start_hour - 9) * 96) + (start_min * 1.6) }}px; height: {{ duration_min * 1.6 }}px;">
+											<p class="text-[11px] font-bold text-[#135bec] truncate">{{ appointment.service.name }}</p>
+											<p class="text-[10px] text-gray-500 truncate">{{ appointment.customer.firstName }}</p>
+										</div>
+									{% endif %}
+								{% endfor %}
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

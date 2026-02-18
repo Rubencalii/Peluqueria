@@ -1,0 +1,68 @@
+{% extends 'admin_base.html.twig' %}
+
+{% block header_title %}Inventario y Almacén
+{% endblock %}
+
+{% block body %}
+	<div
+		class="max-w-7xl mx-auto space-y-6">
+		<!-- Alerts for low stock -->
+		{% if low_stock|length > 0 %}
+			<div class="bg-red-50 dark:bg-red-900/10 border-l-4 border-red-500 p-4 rounded-lg flex items-center gap-3">
+				<span class="material-icons-outlined text-red-500">warning</span>
+				<div>
+					<p class="text-xs font-bold text-red-800 dark:text-red-200">Alertas de Stock:
+						{{ low_stock|length }}
+						productos bajo mínimos.</p>
+				</div>
+			</div>
+		{% endif %}
+
+		<div class="bg-white dark:bg-[#1e293b] rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm overflow-hidden">
+			<div class="p-6 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center">
+				<h3 class="font-bold text-gray-800 dark:text-white text-lg">Catálogo de Productos</h3>
+				<button class="bg-[#135bec] text-white px-4 py-2 rounded-lg text-sm font-medium">Añadir Producto</button>
+			</div>
+			<div class="overflow-x-auto">
+				<table class="w-full text-left border-collapse">
+					<thead class="bg-gray-50 dark:bg-gray-800 text-xs text-gray-500 uppercase">
+						<tr>
+							<th class="px-6 py-4 font-medium">Producto</th>
+							<th class="px-6 py-4 font-medium">Categoría</th>
+							<th class="px-6 py-4 font-medium">Precio</th>
+							<th class="px-6 py-4 font-medium">Stock</th>
+							<th class="px-6 py-4 font-medium text-right">Operaciones</th>
+						</tr>
+					</thead>
+					<tbody class="divide-y divide-gray-100 dark:divide-gray-700">
+						{% for product in products %}
+							<tr class="hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+								<td class="px-6 py-4 font-medium text-gray-900 dark:text-white">{{ product.name }}</td>
+								<td class="px-6 py-4 text-sm text-gray-500">{{ product.category }}</td>
+								<td class="px-6 py-4 text-sm text-gray-500">€{{ product.price|number_format(2) }}</td>
+								<td class="px-6 py-4">
+									<span class="px-2 py-1 rounded-full text-xs font-bold {{ product.stock <= 5 ? 'bg-red-100 text-red-600' : 'bg-green-100 text-green-600' }}">
+										{{ product.stock }}
+										ud.
+									</span>
+								</td>
+								<td class="px-6 py-4 text-right">
+									<button class="text-gray-400 hover:text-[#135bec]">
+										<span class="material-icons-outlined text-sm">edit</span>
+									</button>
+									<button class="text-gray-400 hover:text-red-500 ml-2">
+										<span class="material-icons-outlined text-sm">delete</span>
+									</button>
+								</td>
+							</tr>
+						{% else %}
+							<tr>
+								<td colspan="5" class="px-6 py-10 text-center text-gray-400 italic">Inventario vacío.</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+{% endblock %}

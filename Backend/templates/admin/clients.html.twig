@@ -1,0 +1,49 @@
+{% extends 'admin_base.html.twig' %}
+
+{% block header_title %}Gestión de Clientes
+{% endblock %}
+
+{% block body %}
+	<div class="max-w-7xl mx-auto space-y-6">
+		<div class="bg-white dark:bg-[#1e293b] rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm overflow-hidden">
+			<div class="p-6 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center">
+				<h2 class="font-bold text-gray-800 dark:text-white">Base de Datos de Clientes</h2>
+				<div class="flex gap-2">
+					<input type="text" placeholder="Buscar cliente..." class="text-sm border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
+					<button class="bg-[#135bec] text-white px-4 py-2 rounded-lg text-sm font-medium">Nuevo Cliente</button>
+				</div>
+			</div>
+			<div class="overflow-x-auto">
+				<table class="w-full text-left border-collapse">
+					<thead class="bg-gray-50 dark:bg-gray-800 text-xs text-gray-500 uppercase">
+						<tr>
+							<th class="px-6 py-4 font-medium">Nombre</th>
+							<th class="px-6 py-4 font-medium">Email</th>
+							<th class="px-6 py-4 font-medium">Teléfono</th>
+							<th class="px-6 py-4 font-medium">Última Visita</th>
+							<th class="px-6 py-4 font-medium text-right">Acciones</th>
+						</tr>
+					</thead>
+					<tbody class="divide-y divide-gray-100 dark:divide-gray-700">
+						{% for client in clients %}
+							<tr class="hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+								<td class="px-6 py-4 font-medium text-gray-900 dark:text-white">{{ client.firstName }}
+									{{ client.lastName }}</td>
+								<td class="px-6 py-4 text-sm text-gray-500">{{ client.email }}</td>
+								<td class="px-6 py-4 text-sm text-gray-500">{{ client.phone ?? 'N/A' }}</td>
+								<td class="px-6 py-4 text-sm text-gray-500">Reciente</td>
+								<td class="px-6 py-4 text-right">
+									<button class="text-[#135bec] hover:underline text-sm font-medium">Ver Ficha</button>
+								</td>
+							</tr>
+						{% else %}
+							<tr>
+								<td colspan="5" class="px-6 py-10 text-center text-gray-400 italic">No hay clientes registrados aún.</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+{% endblock %}
