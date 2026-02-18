@@ -59,6 +59,9 @@ class Appointment
     #[ORM\OneToOne(targetEntity: Payment::class, mappedBy: 'appointment', cascade: ['persist', 'remove'])]
     private ?Payment $payment = null;
 
+    #[ORM\OneToOne(mappedBy: 'appointment', cascade: ['persist', 'remove'])]
+    private ?Review $review = null;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();

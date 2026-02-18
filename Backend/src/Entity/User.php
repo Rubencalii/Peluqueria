@@ -61,11 +61,32 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: EmployeeSchedule::class, mappedBy: 'employee', cascade: ['persist', 'remove'])]
     private Collection $schedules;
 
+    /** @var Collection<int, Review> */
+    #[ORM\OneToMany(targetEntity: Review::class, mappedBy: 'customer', orphanRemoval: true)]
+    private Collection $reviews;
+
+    #[ORM\OneToOne(mappedBy: 'customer', cascade: ['persist', 'remove'])]
+    private ?LoyaltyPoints $loyaltyPoints = null;
+
+    #[ORM\OneToOne(mappedBy: 'customer', cascade: ['persist', 'remove'])]
+    private ?CustomerPreference $preferences = null;
+
+    /** @var Collection<int, ProfessionalNote> */
+    #[ORM\OneToMany(targetEntity: ProfessionalNote::class, mappedBy: 'customer', orphanRemoval: true)]
+    private Collection $professionalNotes;
+
+    /** @var Collection<int, WaitingList> */
+    #[ORM\OneToMany(targetEntity: WaitingList::class, mappedBy: 'customer', orphanRemoval: true)]
+    private Collection $waitingListItems;
+
     public function __construct()
     {
         $this->appointmentsAsCustomer = new ArrayCollection();
         $this->appointmentsAsEmployee = new ArrayCollection();
         $this->schedules = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
+        $this->professionalNotes = new ArrayCollection();
+        $this->waitingListItems = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable();
     }
 
@@ -213,5 +234,51 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function isAdmin(): bool
     {
         return in_array(self::ROLE_ADMIN, $this->roles);
+    }
+
+    /** @return Collection<int, Review> */
+    public function getReviews(): Collection
+    {
+        return $this->reviews;
+    }
+
+    public function getLoyaltyPoints(): ?LoyaltyPoints
+    {
+        return $this->loyaltyPoints;
+    }
+
+    public function setLoyaltyPoints(LoyaltyPoints $loyaltyPoints): static
+    {
+        if ($loyaltyPoints->getCustomer() !== $this) {
+            $loyaltyPoints->setCustomer($this);
+        }
+        $this->loyaltyPoints = $loyaltyPoints;
+        return $this;
+    }
+
+    public function getPreferences(): ?CustomerPreference
+    {
+        return $this->preferences;
+    }
+
+    public function setPreferences(CustomerPreference $preferences): static
+    {
+        if ($preferences->getCustomer() !== $this) {
+            $preferences->setCustomer($this);
+        }
+        $this->preferences = $preferences;
+        return $this;
+    }
+
+    /** @return Collection<int, ProfessionalNote> */
+    public function getProfessionalNotes(): Collection
+    {
+        return $this->professionalNotes;
+    }
+
+    /** @return Collection<int, WaitingList> */
+    public function getWaitingListItems(): Collection
+    {
+        return $this->waitingListItems;
     }
 }
