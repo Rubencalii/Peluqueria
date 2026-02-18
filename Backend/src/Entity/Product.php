@@ -37,6 +37,9 @@ class Product
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
+    #[ORM\ManyToOne(inversedBy: 'products')]
+    private ?Salon $salon = null;
+
     /** @var Collection<int, StockMovement> */
     #[ORM\OneToMany(targetEntity: StockMovement::class, mappedBy: 'product', orphanRemoval: true)]
     private Collection $stockMovements;
@@ -142,5 +145,16 @@ class Product
     public function isLowStock(): bool
     {
         return $this->stock <= $this->minStockAlert;
+    }
+
+    public function getSalon(): ?Salon
+    {
+        return $this->salon;
+    }
+
+    public function setSalon(?Salon $salon): static
+    {
+        $this->salon = $salon;
+        return $this;
     }
 }

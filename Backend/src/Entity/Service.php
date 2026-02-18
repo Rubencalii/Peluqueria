@@ -34,6 +34,9 @@ class Service
     #[ORM\Column]
     private bool $active = true;
 
+    #[ORM\ManyToOne]
+    private ?Salon $salon = null;
+
     /** @var Collection<int, Appointment> */
     #[ORM\OneToMany(targetEntity: Appointment::class, mappedBy: 'service')]
     private Collection $appointments;
@@ -128,5 +131,16 @@ class Service
     public function __toString(): string
     {
         return $this->name ?? '';
+    }
+
+    public function getSalon(): ?Salon
+    {
+        return $this->salon;
+    }
+
+    public function setSalon(?Salon $salon): static
+    {
+        $this->salon = $salon;
+        return $this;
     }
 }

@@ -49,6 +49,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
+    #[ORM\ManyToOne(inversedBy: 'staff')]
+    private ?Salon $salon = null;
+
     /** @var Collection<int, Appointment> */
     #[ORM\OneToMany(targetEntity: Appointment::class, mappedBy: 'customer')]
     private Collection $appointmentsAsCustomer;

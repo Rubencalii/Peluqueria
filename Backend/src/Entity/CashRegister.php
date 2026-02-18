@@ -16,6 +16,9 @@ class CashRegister
     #[ORM\Column]
     private ?\DateTimeImmutable $date = null;
 
+    #[ORM\ManyToOne]
+    private ?Salon $salon = null;
+
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
     private ?string $openingBalance = '0.00';
 
@@ -132,6 +135,17 @@ class CashRegister
     public function setNotes(?string $notes): static
     {
         $this->notes = $notes;
+        return $this;
+    }
+
+    public function getSalon(): ?Salon
+    {
+        return $this->salon;
+    }
+
+    public function setSalon(?Salon $salon): static
+    {
+        $this->salon = $salon;
         return $this;
     }
 }

@@ -56,6 +56,9 @@ class Appointment
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
+    #[ORM\ManyToOne(inversedBy: 'appointments')]
+    private ?Salon $salon = null;
+
     #[ORM\OneToOne(targetEntity: Payment::class, mappedBy: 'appointment', cascade: ['persist', 'remove'])]
     private ?Payment $payment = null;
 
@@ -259,6 +262,17 @@ class Appointment
 
         $this->invoice = $invoice;
 
+        return $this;
+    }
+
+    public function getSalon(): ?Salon
+    {
+        return $this->salon;
+    }
+
+    public function setSalon(?Salon $salon): static
+    {
+        $this->salon = $salon;
         return $this;
     }
 }
