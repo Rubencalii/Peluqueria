@@ -62,6 +62,9 @@ class Appointment
     #[ORM\OneToOne(mappedBy: 'appointment', cascade: ['persist', 'remove'])]
     private ?Review $review = null;
 
+    #[ORM\OneToOne(mappedBy: 'appointment', cascade: ['persist', 'remove'])]
+    private ?Invoice $invoice = null;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
@@ -223,5 +226,39 @@ class Appointment
             self::STATUS_NO_SHOW => 'gray',
             default => 'gray',
         };
+    }
+
+    public function getReview(): ?Review
+    {
+        return $this->review;
+    }
+
+    public function setReview(Review $review): static
+    {
+        // set the owning side of the relation if necessary
+        if ($review->getAppointment() !== $this) {
+            $review->setAppointment($this);
+        }
+
+        $this->review = $review;
+
+        return $this;
+    }
+
+    public function getInvoice(): ?Invoice
+    {
+        return $this->invoice;
+    }
+
+    public function setInvoice(Invoice $invoice): static
+    {
+        // set the owning side of the relation if necessary
+        if ($invoice->getAppointment() !== $this) {
+            $invoice->setAppointment($this);
+        }
+
+        $this->invoice = $invoice;
+
+        return $this;
     }
 }
